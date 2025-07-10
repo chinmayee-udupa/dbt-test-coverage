@@ -41,7 +41,7 @@ dbt-test-coverage --help
 
 | Option                 | Description                                                 |
 |------------------------|-------------------------------------------------------------|
-| `--manifestfile PATH`      | Path to `manifest.json` (default: auto-discovered)          |
+| `--manifest-file PATH`      | Path to `manifest.json` (default: auto-discovered)          |
 | `--package NAME`       | Filter by dbt package name                                  |
 | `--unit-test-threshold`| Minimum % unit test coverage (exit code 1 if unmet)         |
 | `--column-test-threshold`| Minimum % column test coverage                            |
