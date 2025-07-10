@@ -41,7 +41,7 @@ dbt-test-coverage --help
 
 | Option                 | Description                                                 |
 |------------------------|-------------------------------------------------------------|
-| `--manifest PATH`      | Path to `manifest.json` (default: auto-discovered)          |
+| `--manifestfile PATH`      | Path to `manifest.json` (default: auto-discovered)          |
 | `--package NAME`       | Filter by dbt package name                                  |
 | `--unit-test-threshold`| Minimum % unit test coverage (exit code 1 if unmet)         |
 | `--column-test-threshold`| Minimum % column test coverage                            |
@@ -63,13 +63,15 @@ dbt-test-coverage \
   --unit-test-threshold 80 \
   --column-test-threshold 70 \
   --contract-threshold 50 \
-  --show-column-details
+  --show-column-details \
+  --manifest-file tests/integration/jaffle_shop/target/manifest.json
 ```
 
 ```bash
 dbt-test-coverage \
   --package my_dbt_project \
-  --model-name 'fact_*'
+  --model-name 'fact_*' \
+  --json-out coverage.json
 ```
 
 ```bash
@@ -81,7 +83,13 @@ dbt-test-coverage \
 ```bash
 dbt-test-coverage \
   --package my_dbt_project \
-  --has-tags gold \
+  --has-tags gold
+```
+
+```bash
+dbt-test-coverage \
+  --package my_dbt_project \
+  --has-tags "gold,silver" \
   --any-tag
 ```
 

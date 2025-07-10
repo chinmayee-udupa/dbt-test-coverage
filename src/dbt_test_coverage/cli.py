@@ -72,7 +72,8 @@ def main(
         manifest_path = manifest_file or _find_manifest()
         if not manifest_path:
             raise ManifestNotFoundError(
-                "Could not find manifest.json automatically. " "Please specify with --manifest"
+                "Could not find manifest.json automatically. "
+                "Please specify with --manifest-file"
             )
 
         # Create filters dictionary
