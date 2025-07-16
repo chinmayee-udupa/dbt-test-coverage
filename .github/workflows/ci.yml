@@ -18,6 +18,8 @@ jobs:
           POSTGRES_PASSWORD: postgres
           POSTGRES_DB: public
           POSTGRES_SCHEMA: public
+        ports:
+          - 5432:5432
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
