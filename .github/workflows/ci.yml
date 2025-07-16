@@ -52,13 +52,18 @@ jobs:
       - name: Run flake8
         run: poetry run flake8
 
-      - name: Download wait-for-it script
-        run: |
-          curl -o wait-for-it.sh https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh
-          chmod +x wait-for-it.sh
-
       - name: Wait for PostgreSQL
-        run: ./wait-for-it.sh postgres:5432 --timeout=30
+        run: |
+          for i in {1..10}; do
+            if nc -z localhost 5432; then
+              echo "PostgreSQL is ready!"
+              exit 0
+            fi
+            echo "Waiting for PostgreSQL... Attempt $i/10"
+            sleep 3
+          done
+          echo "PostgreSQL failed to start"
+          exit 1
 
       - name: Debug DBT connection
         run: poetry run dbt debug --project-dir tests/integration/jaffle_shop --profiles-dir tests/integration/profiles
