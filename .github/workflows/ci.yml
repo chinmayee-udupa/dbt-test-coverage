@@ -9,6 +9,8 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    # Docker Hub image that `container-job` executes in
+    container: node:20-bookworm-slim
 
     services:
       postgres:
@@ -18,8 +20,6 @@ jobs:
           POSTGRES_PASSWORD: postgres
           POSTGRES_DB: public
           POSTGRES_SCHEMA: public
-        ports:
-          - 5432:5432
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
