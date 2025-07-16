@@ -15,7 +15,7 @@ jobs:
         image: postgres
         env:
           POSTGRES_USER: test
-          POSTGRES_PASSWORD: test
+          POSTGRES_PASSWORD: postgres
           POSTGRES_DB: public
           POSTGRES_SCHEMA: public
         ports:
@@ -68,6 +68,6 @@ jobs:
           POSTGRES_HOST: postgres
           POSTGRES_PORT: 5432
           POSTGRES_USER: test
-          POSTGRES_PASSWORD: test
+          POSTGRES_PASSWORD: postgres
           POSTGRES_DB: public
           POSTGRES_SCHEMA: public
