@@ -1,0 +1,86 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:13
+        env:
+          POSTGRES_USER: test
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: public
+          POSTGRES_SCHEMA: public
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Checkout code with submodules
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
+
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Poetry
+        run: |
+          curl -sSL https://install.python-poetry.org | python3 -
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
+
+      - name: Install dependencies
+        run: poetry install
+
+      - name: Run black
+        run: poetry run black --check .
+
+      - name: Run flake8
+        run: poetry run flake8
+
+      - name: Wait for PostgreSQL
+        run: |
+          for i in {1..10}; do
+            if nc -z localhost 5432; then
+              echo "PostgreSQL is ready!"
+              exit 0
+            fi
+            echo "Waiting for PostgreSQL... Attempt $i/10"
+            sleep 3
+          done
+          echo "PostgreSQL failed to start"
+          exit 1
+
+      - name: Debug DBT connection
+        run: poetry run dbt debug --project-dir tests/integration/jaffle_shop --profiles-dir tests/integration/profiles
+        env:
+          POSTGRES_HOST: localhost
+          POSTGRES_PORT: 5432
+          POSTGRES_USER: test
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: public
+          POSTGRES_SCHEMA: public
+
+      - name: Run tests
+        run: poetry run pytest
+        env:
+          POSTGRES_HOST: localhost
+          POSTGRES_PORT: 5432
+          POSTGRES_USER: test
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: public
+          POSTGRES_SCHEMA: public
