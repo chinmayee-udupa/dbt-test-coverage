@@ -3,10 +3,10 @@ jaffle_shop:
   outputs:
     dev:
       type: postgres
-      host: localhost
-      user: postgres
-      password: postgres
-      port: 5432
-      dbname: jaffle_shop
-      schema: jaffle_shop
+      host: "{{ env_var('POSTGRES_HOST', 'localhost') }}"
+      port: "{{ env_var('POSTGRES_PORT', '5432') | int }}"
+      user: "{{ env_var('POSTGRES_USER', 'test') }}"
+      password: "{{ env_var('POSTGRES_PASSWORD', 'test') }}"
+      dbname: "{{ env_var('POSTGRES_DB', 'public') }}"
+      schema: "{{ env_var('POSTGRES_SCHEMA', 'public') }}"
       threads: 4

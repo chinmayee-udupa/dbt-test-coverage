@@ -26,6 +26,7 @@ pre-commit = "^3.6.2"
 tox = "^4"
 typing-extensions = "*"
 importlib-metadata = "*"
+flake8 = "^7.0.0"
 
 [tool.poetry.scripts]
 dbt-test-coverage = "dbt_test_coverage.cli:main"
