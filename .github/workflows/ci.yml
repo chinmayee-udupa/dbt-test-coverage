@@ -50,6 +50,15 @@ jobs:
       - name: Run flake8
         run: poetry run flake8
 
+      - name: Install netcat to check connection
+        run: sudo apt-get install -y netcat
+
+      - name: Wait for PostgreSQL
+        run: |
+          while ! nc -z postgres 5432; do
+            sleep 1
+          done
+
       - name: Debug DBT connection
         run: poetry run dbt debug --project-dir tests/integration/jaffle_shop --profiles-dir tests/integration/profiles
         env:
