@@ -56,6 +56,18 @@ jobs:
         run: poetry run dbt debug --project-dir tests/integration/jaffle_shop --profiles-dir tests/integration/profiles
         env:
           POSTGRES_HOST: postgres
+          POSTGRES_PORT: 5432
+          POSTGRES_USER: test
+          POSTGRES_PASSWORD: test
+          POSTGRES_DB: public
+          POSTGRES_SCHEMA: public
 
       - name: Run tests
         run: poetry run pytest
+        env:
+          POSTGRES_HOST: postgres
+          POSTGRES_PORT: 5432
+          POSTGRES_USER: test
+          POSTGRES_PASSWORD: test
+          POSTGRES_DB: public
+          POSTGRES_SCHEMA: public
