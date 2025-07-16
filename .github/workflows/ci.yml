@@ -18,6 +18,8 @@ jobs:
           POSTGRES_PASSWORD: test
           POSTGRES_DB: public
           POSTGRES_SCHEMA: public
+        ports:
+          - 5432:5432
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -50,8 +52,10 @@ jobs:
       - name: Run flake8
         run: poetry run flake8
 
-      - name: Connect to PostgreSQL
-        run: poetry run pytest
+      - name: Debug DBT connection
+        run: poetry run dbt debug --project-dir tests/integration/jaffle_shop --profiles-dir tests/integration/profiles
+        env:
+          POSTGRES_HOST: postgres
 
       - name: Run tests
         run: poetry run pytest
