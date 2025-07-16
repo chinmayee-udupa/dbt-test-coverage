@@ -12,7 +12,7 @@ jobs:
 
     services:
       postgres:
-        image: postgres
+        image: postgres:13
         env:
           POSTGRES_USER: test
           POSTGRES_PASSWORD: postgres
@@ -63,7 +63,7 @@ jobs:
       - name: Debug DBT connection
         run: poetry run dbt debug --project-dir tests/integration/jaffle_shop --profiles-dir tests/integration/profiles
         env:
-          POSTGRES_HOST: postgres
+          POSTGRES_HOST: localhost
           POSTGRES_PORT: 5432
           POSTGRES_USER: test
           POSTGRES_PASSWORD: postgres
@@ -73,7 +73,7 @@ jobs:
       - name: Run tests
         run: poetry run pytest
         env:
-          POSTGRES_HOST: postgres
+          POSTGRES_HOST: localhost
           POSTGRES_PORT: 5432
           POSTGRES_USER: test
           POSTGRES_PASSWORD: postgres
