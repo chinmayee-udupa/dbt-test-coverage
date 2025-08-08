@@ -25,7 +25,7 @@ console = Console()
 # Tag filters
 @click.option(
     "--has-tags",
-    help="""Comma-separated list of required tags 'gold,smb'""",
+    help="""Comma-separated list of required tags 'gold,finance'""",
     callback=lambda ctx, param, value: value.split(",") if value else [],
 )
 @click.option(
