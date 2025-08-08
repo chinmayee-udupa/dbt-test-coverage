@@ -29,6 +29,18 @@ Or with Poetry:
 poetry add git+https://github.com/chinmayee-udupa/dbt-test-coverage.git
 ```
 
+To upgrade, run:
+
+```bash
+pip install --upgrade dbt-test-coverage
+```
+
+Or upgrade with Poetry:
+
+```bash
+poetry update dbt-test-coverage
+```
+
 To uninstall, run:
 
 ```bash
@@ -57,6 +69,7 @@ dbt-test-coverage --help
 | `--model-path PATH`    | Filter by model file path                                   |
 | `--has-tags TAG`       | Only include models with these tags                         |
 | `--any-tag`            | Match models that have *any* of the specified tags          |
+| `--help`               | help command                                                |
 
 ---
 
