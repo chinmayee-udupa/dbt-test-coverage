@@ -29,6 +29,11 @@ Or with Poetry:
 poetry add git+https://github.com/chinmayee-udupa/dbt-test-coverage.git
 ```
 
+To uninstall, run:
+
+```bash
+pip uninstall dbt_test_coverage
+```
 ---
 
 ## 🧰 Usage
