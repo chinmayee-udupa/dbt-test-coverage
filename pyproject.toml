@@ -28,8 +28,8 @@ flake8 = "^7.0.0"
 pytest = "^7"
 pytest-docker = "^2"
 importlib-metadata = { version = "*", python = "^3.9" }
-dbt-core = { version = "^1.8.0", python = "^3.9" }
-dbt-postgres = { version = "^1.8.0", python = "^3.9" }
+dbt-core = { version = "~1.8.0", python = "^3.9" }
+dbt-postgres = { version = "~1.8.0", python = "^3.9" }
 
 [tool.poetry.scripts]
 dbt-test-coverage = "dbt_test_coverage.cli:main"
